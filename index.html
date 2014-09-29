@@ -63,19 +63,7 @@
 			<p class="tagline">优化每个页面刷新的机制</p>
 			<div id="main" role="main">
 
-				<article class="markdown-body">
-
-					<p>Dears, 我目前有个想法优化每个页面刷新的机制 例如如果从A -> B->
-						C三个页面的跳转后在C页面修改后需要后退更新前面的两个页面 那么我们可以把A 标志一个 0x001 B 标志为0x010
-						我么可以在C页面设置 FLAG= FLAG_A | FLAG_B; 然后后退到B即可使用（（FLAG| FLAG_B）==
-						FLAG_B ）判断是否需要刷新，到A页面可以使用（（FLAG| FLAG_A）== FLAG_A ）即可
-
-						我已经在Variables.class封装了方法如下 ，我们可以现测试使用看看能否满足要求
-
-
-						-------------------------------- denghaizhu</p>
-
-				</article>
+				<img src="chapter1.png">
 			</div>
 		</div>
 		<footer>
