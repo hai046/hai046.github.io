@@ -1,3 +1,6 @@
+---
+title: welcome!
+---
 <!doctype html>
 <html>
   <head>
@@ -18,9 +21,6 @@
       <header>
         <h1 class="header">Hai046.github.io</h1>
         <p class="header">My blog Project</p>
-
-
-
         <ul>
           <li><a class="buttons github" href="https://github.com/hai046">GitHub Profile</a></li>
         </ul>
@@ -30,11 +30,10 @@
         <h2>
 <a id="欢迎来到我的blog" class="anchor" href="#%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%88%91%E7%9A%84blog" aria-hidden="true"><span class="octicon octicon-link"></span></a>欢迎来到我的blog</h2>
 
-<p><a href="ganglia%E9%85%8D%E7%BD%AE.html">ganglia配置1</a></p>
 <ul>
   {% for post in site.posts %}
     <li>
-      <a href="{{ post.url }}">{{ post.title }}</a>
+	<a href="{{ post.url }}"><span> {{ post.title }} [{{ post.date | date_to_string }}]</span></a>
     </li>
   {% endfor %}
 </ul>
