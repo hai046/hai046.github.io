@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>ganglia 安装</title>
+    <title>home</title>
     <meta name="description" content="Myself blog">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://www.denghaizhu.com/2015/09/30/ganlia-install.html">
+    <link rel="canonical" href="http://www.denghaizhu.com/2015/09/01/home.html">
 </head>
 
 
@@ -70,160 +70,12 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">ganglia 安装</h1>
-    <p class="post-meta">Sep 30, 2015</p>
+    <h1 class="post-title">home</h1>
+    <p class="post-meta">Sep 1, 2015</p>
   </header>
 
   <article class="post-content">
-    <h1 id="ganglia">ganglia配置</h1>
-
-<p>###服务端 ganglia<br />
-命令：<br />
-<code>yum install ganglia ganglia-gmetad ganglia-web ganglia-gmond</code></p>
-
-<p>修改配置<br />
-<code>/etc/ganglia/gmetad.conf</code></p>
-
-<p>修改文件/etc/ganglia/gmetad.conf</p>
-
-<blockquote>
-  <p>data_source “jiemo_ganglia_cluster” localhost<br />
-setuid_username ganglia</p>
-</blockquote>
-
-<h3 id="rrds">创建rrds目录</h3>
-<p>mkdir -p /var/lib/ganglia/rrds<br />
-  chown ganglia:ganglia /var/lib/ganglia/rrds<br />
-  chmod a+w /var/lib/ganglia/rrds</p>
-
-<p>###客户端 ganglia-gmond</p>
-
-<p>命令：<br />
-<code>yum install ganglia ganglia-gmond</code></p>
-
-<p>修改配置<br />
-<code>vim /etc/ganglia/gmond.conf</code></p>
-
-<blockquote>
-  <p>#1,修改名字<br />
-cluster {<br />
-  name = “JiemoApp-ganglia”<br />
-  }</p>
-</blockquote>
-
-<blockquote>
-  <p>#2修改描述<br />
-host {<br />
-        location = “grape”<br />
-    }</p>
-</blockquote>
-
-<blockquote>
-  <p>#3 修改发送到服务器的配置<br />
-udp_send_channel {<br />
-  host=10.44.138.0<br />
-  port = 8649<br />
-  ttl = 1<br />
- }</p>
-</blockquote>
-
-<blockquote>
-  <p>#4接收配置<br />
-udp_recv_channel {<br />
-  port = 8649<br />
-  }</p>
-</blockquote>
-
-<p>####启动<br />
-<code>service gmond start//启动
-    service gmond status//查看状态</code></p>
-
-<p>##参考资料<br />
-&gt;1. 安装php支持<br />
- yum install php-common php-cli php-gb php</p>
-
-<blockquote>
-  <ol>
-    <li>安装ganglia及其相关组件<br />
-server端：yum install rrdtool rrdtool-devel ganglia-web ganglia-gmetad ganglia-gmond ganglia-gmond-python httpd apr-devel zlib-devel libconfuse-devel expat-devel pcre-devel <br />
-client端：yum install ganglia-gmond</li>
-  </ol>
-</blockquote>
-
-<blockquote>
-  <ol>
-    <li>相关配置<br />
-  修改/etc/ganglia/gmond.conf<br />
- cluster {<br />
-name = “Cynric”  //这个是整个集群的名字<br />
- }</li>
-  </ol>
-</blockquote>
-
-<blockquote>
-  <p>dup_send_channel {<br />
-  host = 127.0.0.1  // host为单播模式  mcast_join为多播模式<br />
- }</p>
-</blockquote>
-
-<blockquote>
-  <p>udp_recv_channel {<br />
-  port = 8649   // 如果是用单播模式则要删除mcast_join和bind两个选项<br />
- }</p>
-</blockquote>
-
-<blockquote>
-  <p>客户端<br />
- 修改文件/etc/ganglia/gmetad.conf<br />
- data_source “jiemoapp_ganglia” localhost   //Cynric是gmond.conf中cluster里name的名字  localhost则需要是服务器端的ip</p>
-</blockquote>
-
-<blockquote>
-  <p>setuid_username “ganglia”</p>
-</blockquote>
-
-<blockquote>
-  <ol>
-    <li>创建rrds目录<br />
-  mkdir -p /var/lib/ganglia/rrds<br />
-  chown ganglia:ganglia /var/lib/ganglia/rrds<br />
-  chmod a+w /var/lib/ganglia/rrds</li>
-  </ol>
-</blockquote>
-
-<blockquote>
-  <ol>
-    <li>关闭SELinux不然无法访问监控的web的页面<br />
-vi /etc/selinux/config<br />
-SELINUX=disable<br />
-以上方法需要重启机器</li>
-  </ol>
-</blockquote>
-
-<blockquote>
-  <p>可以在终端上直接输入setenforce 0即可</p>
-</blockquote>
-
-<blockquote>
-  <ol>
-    <li>启动相关服务<br />
-service gmond restart<br />
-service gmetad restart<br />
-service httpd restart</li>
-  </ol>
-</blockquote>
-
-<blockquote>
-  <ol>
-    <li>浏览器中输入127.0.0.1/ganglia检验是否成功</li>
-  </ol>
-</blockquote>
-
-<blockquote>
-  <ol>
-    <li>遇到相关问题请查看http://blog.csdn.net/cybercode/article/details/6210444</li>
-  </ol>
-</blockquote>
+    <h1 id="home">home</h1>
 
   </article>
 

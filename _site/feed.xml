@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hai046&#39;blog</title>
+    <title>My Private Blog</title>
     <description>Myself blog</description>
     <link>http://www.denghaizhu.com/</link>
     <atom:link href="http://www.denghaizhu.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 30 Sep 2015 18:14:16 +0800</pubDate>
-    <lastBuildDate>Wed, 30 Sep 2015 18:14:16 +0800</lastBuildDate>
+    <pubDate>Wed, 30 Sep 2015 18:22:11 +0800</pubDate>
+    <lastBuildDate>Wed, 30 Sep 2015 18:22:11 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -230,6 +230,17 @@ service httpd restart&lt;/li&gt;
         <pubDate>Wed, 30 Sep 2015 00:00:00 +0800</pubDate>
         <link>http://www.denghaizhu.com/2015/09/30/Android%20OpenGL%20es%20GPUImage%20convert.html</link>
         <guid isPermaLink="true">http://www.denghaizhu.com/2015/09/30/Android%20OpenGL%20es%20GPUImage%20convert.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>home</title>
+        <description>&lt;h1 id=&quot;home&quot;&gt;home&lt;/h1&gt;
+</description>
+        <pubDate>Tue, 01 Sep 2015 00:00:00 +0800</pubDate>
+        <link>http://www.denghaizhu.com/2015/09/01/home.html</link>
+        <guid isPermaLink="true">http://www.denghaizhu.com/2015/09/01/home.html</guid>
         
         
       </item>
