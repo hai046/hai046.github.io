@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>home</title>
+    <title>在android使用lambda表达式</title>
     <meta name="description" content="Myself blog">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://www.denghaizhu.com/2015/09/01/home.html">
+    <link rel="canonical" href="http://www.denghaizhu.com/posts/2015-07-23-%E5%9C%A8android%E4%BD%BF%E7%94%A8lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">
 </head>
 
 
@@ -34,7 +34,7 @@
       <div class="trigger">
         
           
-          <a class="page-link" href="/posts/2015-09-01-home.html">home</a>
+          <a class="page-link" href="/posts/2015-07-23-%E5%9C%A8android%E4%BD%BF%E7%94%A8lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">在android使用lambda表达式</a>
           
         
           
@@ -43,6 +43,10 @@
         
           
           <a class="page-link" href="/posts/2015-09-30-ganlia-install.html">ganglia 安装</a>
+          
+        
+          
+          <a class="page-link" href="/posts/2015-09-30-okHttp-%E4%BD%BF%E7%94%A8.html">home</a>
           
         
           
@@ -70,12 +74,59 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">home</h1>
-    <p class="post-meta">Sep 1, 2015</p>
+    <h1 class="post-title">在android使用lambda表达式</h1>
+    <p class="post-meta"></p>
   </header>
 
   <article class="post-content">
-    <h1 id="home">home</h1>
+    <h1 id="androidlambda">在android使用lambda表达式</h1>
+<p>简介：java 8中本人感觉非常感兴趣的有两大特性 <br />
+lambda和 stream</p>
+
+<p>但是在android中我们只能使用java7，不支持java8 ，这非常让人感觉沮丧，但是往往都有很多牛人已经帮我们解决了  （嘎嘎嘎嘎，兴奋一下）</p>
+
+<p>大牛的地址 <a href="https://github.com/evant/gradle-retrolambda">https://github.com/evant/gradle-retrolambda</a></p>
+
+<p>主要修改添加 build.gradle 配置如下</p>
+
+<pre><code>buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.3+'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.0+'//添加支持
+    }
+}
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'//添加插件
+android {
+	…………………其他配置……………
+	compileOptions {//使用jdk 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+ }
+</code></pre>
+
+<p>只要添加这3个地方就ok了！</p>
+
+<p>###使用<br />
+例如dialog 和 view  click 事件</p>
+
+<pre><code>Dialog mUnstartDialog = new Dialog(getActivity())
+                    .setTitle(R.string.unstar_title)
+                    .setMessage(R.string.unstar_message)
+                    .setPositiveButton(R.string.unstar_positive,
+                            (dialog, which) -&gt; {
+                       ……         
+                            }).setNegativeButton(R.string.unstar_negative, null).create();
+</code></pre>
+
+<p><code>view.setOnClickListener(v -&gt; onRowAdapterClickListener.onClick(v, info, position));</code></p>
+
+<p>但是这也有个弊端，搜索类方法的时候可就不好找了  例如OnClick方法变成了 v-&gt;{}  你就不好搜索了 o(╯□╰)o</p>
 
   </article>
 

@@ -5,8 +5,8 @@
     <description>Myself blog</description>
     <link>http://www.denghaizhu.com/</link>
     <atom:link href="http://www.denghaizhu.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 30 Sep 2015 18:22:11 +0800</pubDate>
-    <lastBuildDate>Wed, 30 Sep 2015 18:22:11 +0800</lastBuildDate>
+    <pubDate>Wed, 30 Sep 2015 18:40:19 +0800</pubDate>
+    <lastBuildDate>Wed, 30 Sep 2015 18:40:19 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -169,6 +169,17 @@ service httpd restart&lt;/li&gt;
       </item>
     
       <item>
+        <title>home</title>
+        <description>&lt;h1 id=&quot;home&quot;&gt;home&lt;/h1&gt;
+</description>
+        <pubDate>Wed, 30 Sep 2015 00:00:00 +0800</pubDate>
+        <link>http://www.denghaizhu.com/2015/09/30/okHttp-%E4%BD%BF%E7%94%A8.html</link>
+        <guid isPermaLink="true">http://www.denghaizhu.com/2015/09/30/okHttp-%E4%BD%BF%E7%94%A8.html</guid>
+        
+        
+      </item>
+    
+      <item>
         <title>Android opengl es gpuimage convert</title>
         <description>&lt;h1 id=&quot;android-opengl-es-gpuimage-convert-yuv-to-rgb&quot;&gt;Android OpenGL es GPUImage convert YUV to RGB&lt;/h1&gt;
 
@@ -235,12 +246,59 @@ service httpd restart&lt;/li&gt;
       </item>
     
       <item>
-        <title>home</title>
-        <description>&lt;h1 id=&quot;home&quot;&gt;home&lt;/h1&gt;
+        <title>在android使用lambda表达式</title>
+        <description>&lt;h1 id=&quot;androidlambda&quot;&gt;在android使用lambda表达式&lt;/h1&gt;
+&lt;p&gt;简介：java 8中本人感觉非常感兴趣的有两大特性 &lt;br /&gt;
+lambda和 stream&lt;/p&gt;
+
+&lt;p&gt;但是在android中我们只能使用java7，不支持java8 ，这非常让人感觉沮丧，但是往往都有很多牛人已经帮我们解决了  （嘎嘎嘎嘎，兴奋一下）&lt;/p&gt;
+
+&lt;p&gt;大牛的地址 &lt;a href=&quot;https://github.com/evant/gradle-retrolambda&quot;&gt;https://github.com/evant/gradle-retrolambda&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;主要修改添加 build.gradle 配置如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath &#39;com.android.tools.build:gradle:1.2.3+&#39;
+        classpath &#39;me.tatarka:gradle-retrolambda:3.2.0+&#39;//添加支持
+    }
+}
+apply plugin: &#39;com.android.application&#39;
+apply plugin: &#39;me.tatarka.retrolambda&#39;//添加插件
+android {
+	…………………其他配置……………
+	compileOptions {//使用jdk 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;只要添加这3个地方就ok了！&lt;/p&gt;
+
+&lt;p&gt;###使用&lt;br /&gt;
+例如dialog 和 view  click 事件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Dialog mUnstartDialog = new Dialog(getActivity())
+                    .setTitle(R.string.unstar_title)
+                    .setMessage(R.string.unstar_message)
+                    .setPositiveButton(R.string.unstar_positive,
+                            (dialog, which) -&amp;gt; {
+                       ……         
+                            }).setNegativeButton(R.string.unstar_negative, null).create();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;view.setOnClickListener(v -&amp;gt; onRowAdapterClickListener.onClick(v, info, position));&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;但是这也有个弊端，搜索类方法的时候可就不好找了  例如OnClick方法变成了 v-&amp;gt;{}  你就不好搜索了 o(╯□╰)o&lt;/p&gt;
 </description>
-        <pubDate>Tue, 01 Sep 2015 00:00:00 +0800</pubDate>
-        <link>http://www.denghaizhu.com/2015/09/01/home.html</link>
-        <guid isPermaLink="true">http://www.denghaizhu.com/2015/09/01/home.html</guid>
+        <pubDate>Thu, 23 Jul 2015 00:00:00 +0800</pubDate>
+        <link>http://www.denghaizhu.com/2015/07/23/%E5%9C%A8android%E4%BD%BF%E7%94%A8lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html</link>
+        <guid isPermaLink="true">http://www.denghaizhu.com/2015/07/23/%E5%9C%A8android%E4%BD%BF%E7%94%A8lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html</guid>
         
         
       </item>
