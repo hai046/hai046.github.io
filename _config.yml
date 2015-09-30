@@ -2,3 +2,9 @@ encoding: utf-8
 markdown: kramdown
 kramdown:
   input: GFM
+title: My Private Blog
+email: haizhu12345@gmail.com
+description: Myself blog
+url: "http://www.denghaizhu.com" # the base hostname & protocol for your site
+github_username:  hai046
+
