@@ -1,7 +1,7 @@
 ---
 layout: post
+title: ganglia 安装
 date:   2015-09-30 15:43:36
-categories: jekyll update
 ---
 # ganglia配置
 

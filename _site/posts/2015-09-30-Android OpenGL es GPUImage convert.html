@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>My Private Blog</title>
+    <title>Android opengl es gpuimage convert</title>
     <meta name="description" content="Myself blog">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://www.denghaizhu.com/">
+    <link rel="canonical" href="http://www.denghaizhu.com/posts/2015-09-30-Android%20OpenGL%20es%20GPUImage%20convert.html">
 </head>
 
 
@@ -63,38 +63,72 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <div class="post">
 
-  <h1 class="page-heading">Posts</h1>
+  <header class="post-header">
+    <h1 class="post-title">Android opengl es gpuimage convert</h1>
+    <p class="post-meta"></p>
+  </header>
 
-  <ul class="post-list">
-    
-      <li>
-        <span class="post-meta">Sep 30, 2015</span>
+  <article class="post-content">
+    <h1 id="android-opengl-es-gpuimage-convert-yuv-to-rgb">Android OpenGL es GPUImage convert YUV to RGB</h1>
 
-        <h2>
-          <a class="post-link" href="/2015/09/30/welcome-to-jekyll.html">Welcome To Jekyll</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Sep 30, 2015</span>
+<p>Android OpenGL-ES GPUImage</p>
 
-        <h2>
-          <a class="post-link" href="/2015/09/30/ganlia-install.html">ganglia 安装</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Sep 30, 2015</span>
+<hr />
 
-        <h2>
-          <a class="post-link" href="/2015/09/30/Android%20OpenGL%20es%20GPUImage%20convert.html">Android opengl es gpuimage convert</a>
-        </h2>
-      </li>
-    
-  </ul>
+<p>##1，YUV转RGB<br />
+ andorid  的camera数据是YUV数据，需要转换成rgb，但是普通的转换效率不高，即使使用jni转换也依然如此</p>
 
+<p>修改fragment shader脚本如下：</p>
+
+<pre><code>    varying highp vec2 textureCoordinate;
+    uniform sampler2D inputImageTexture;
+    uniform sampler2D uvTexture;
+    precision mediump float;
+    void main(){
+         vec4 y = vec4((texture2D(inputImageTexture, textureCoordinate).r - 16./255.) * 1.164);  
+         vec4 u = vec4(texture2D(uvTexture, textureCoordinate).a - 128./255.);  
+        vec4 v = vec4(texture2D(uvTexture, textureCoordinate).r - 128./255.);  
+        y += v * vec4(1.596, -0.813, 0, 0);
+        y += u * vec4(0, -0.392, 2.017, 0); 
+        y.a = 1.0;
+        gl_FragColor = y;//texture2D(inputImageTexture, textureCoordinate);
+               }
+</code></pre>
+
+<p>这是是关键代码 YUV数据转换成RGBA<br />
+### 2，坐标转换 <br />
+坐标转换 例如平移缩放旋转等<br />
+坐标脚本</p>
+
+<pre><code>    VERTEX_SHADER = "uniform mat4 uMVPMatrix;\n"
+                + "attribute vec4 position;\n" + "attribute vec4 inputTextureCoordinate;\n" + " \n"
+                + "varying vec2 textureCoordinate;\n" + " \n" + "void main()\n" + "{\n"
+                + "    gl_Position = uMVPMatrix * position; \n"
+                + "    textureCoordinate = inputTextureCoordinate.xy;\n" + "}";
+</code></pre>
+
+<p>多添加了uMVPMatrix  </p>
+
+<p>Matrix.frustumM(mProjMatrix, 0, -ratio, ratio, -1, 1, 1, 2);</p>
+
+<pre><code>    Matrix.setLookAtM(mVMatrix, 0,//
+            0, 0, cameraId == Camera.CameraInfo.CAMERA_FACING_FRONT ? -1 : 1, //eye
+            0f, 0f, 0f,//center
+            0f, 1f, 0f//up
+    );
+    //eye 坐标的eyez 正值时候看到的景物是折叠的
+
+    float y = ((maxHeight - height) / 1f / maxHeight);
+    Matrix.translateM(mVMatrix, 0,//
+            0, y, 0f//x,y,z
+    );
+
+    Matrix.rotateM(mVMatrix, 0, mRotation.asInt(), 0, 0, -1);
+</code></pre>
+
+  </article>
 
 </div>
 

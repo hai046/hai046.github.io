@@ -5,12 +5,12 @@
     <description>Myself blog</description>
     <link>http://www.denghaizhu.com/</link>
     <atom:link href="http://www.denghaizhu.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 30 Sep 2015 16:05:17 +0800</pubDate>
-    <lastBuildDate>Wed, 30 Sep 2015 16:05:17 +0800</lastBuildDate>
+    <pubDate>Wed, 30 Sep 2015 17:57:25 +0800</pubDate>
+    <lastBuildDate>Wed, 30 Sep 2015 17:57:25 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
-        <title>Welcome to Jekyll!</title>
+        <title>Welcome To Jekyll</title>
         <description>&lt;p&gt;You’ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code&gt;jekyll serve --watch&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
 
 &lt;p&gt;To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
@@ -27,18 +27,14 @@
 
 </description>
         <pubDate>Wed, 30 Sep 2015 23:43:36 +0800</pubDate>
-        <link>http://www.denghaizhu.com/jekyll/update/2015/09/30/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://www.denghaizhu.com/jekyll/update/2015/09/30/welcome-to-jekyll.html</guid>
+        <link>http://www.denghaizhu.com/2015/09/30/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://www.denghaizhu.com/2015/09/30/welcome-to-jekyll.html</guid>
         
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
         
       </item>
     
       <item>
-        <title>Ganlia Install</title>
+        <title>ganglia 安装</title>
         <description>&lt;h1 id=&quot;ganglia&quot;&gt;ganglia配置&lt;/h1&gt;
 
 &lt;p&gt;###服务端 ganglia&lt;br /&gt;
@@ -190,13 +186,75 @@ service httpd restart&lt;/li&gt;
 &lt;/blockquote&gt;
 </description>
         <pubDate>Wed, 30 Sep 2015 23:43:36 +0800</pubDate>
-        <link>http://www.denghaizhu.com/jekyll/update/2015/09/30/ganlia-install.html</link>
-        <guid isPermaLink="true">http://www.denghaizhu.com/jekyll/update/2015/09/30/ganlia-install.html</guid>
+        <link>http://www.denghaizhu.com/2015/09/30/ganlia-install.html</link>
+        <guid isPermaLink="true">http://www.denghaizhu.com/2015/09/30/ganlia-install.html</guid>
         
         
-        <category>jekyll</category>
+      </item>
+    
+      <item>
+        <title>Android opengl es gpuimage convert</title>
+        <description>&lt;h1 id=&quot;android-opengl-es-gpuimage-convert-yuv-to-rgb&quot;&gt;Android OpenGL es GPUImage convert YUV to RGB&lt;/h1&gt;
+
+&lt;p&gt;Android OpenGL-ES GPUImage&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;##1，YUV转RGB&lt;br /&gt;
+ andorid  的camera数据是YUV数据，需要转换成rgb，但是普通的转换效率不高，即使使用jni转换也依然如此&lt;/p&gt;
+
+&lt;p&gt;修改fragment shader脚本如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    varying highp vec2 textureCoordinate;
+    uniform sampler2D inputImageTexture;
+    uniform sampler2D uvTexture;
+    precision mediump float;
+    void main(){
+         vec4 y = vec4((texture2D(inputImageTexture, textureCoordinate).r - 16./255.) * 1.164);  
+         vec4 u = vec4(texture2D(uvTexture, textureCoordinate).a - 128./255.);  
+        vec4 v = vec4(texture2D(uvTexture, textureCoordinate).r - 128./255.);  
+        y += v * vec4(1.596, -0.813, 0, 0);
+        y += u * vec4(0, -0.392, 2.017, 0); 
+        y.a = 1.0;
+        gl_FragColor = y;//texture2D(inputImageTexture, textureCoordinate);
+               }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这是是关键代码 YUV数据转换成RGBA&lt;br /&gt;
+### 2，坐标转换 &lt;br /&gt;
+坐标转换 例如平移缩放旋转等&lt;br /&gt;
+坐标脚本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    VERTEX_SHADER = &quot;uniform mat4 uMVPMatrix;\n&quot;
+                + &quot;attribute vec4 position;\n&quot; + &quot;attribute vec4 inputTextureCoordinate;\n&quot; + &quot; \n&quot;
+                + &quot;varying vec2 textureCoordinate;\n&quot; + &quot; \n&quot; + &quot;void main()\n&quot; + &quot;{\n&quot;
+                + &quot;    gl_Position = uMVPMatrix * position; \n&quot;
+                + &quot;    textureCoordinate = inputTextureCoordinate.xy;\n&quot; + &quot;}&quot;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;多添加了uMVPMatrix  &lt;/p&gt;
+
+&lt;p&gt;Matrix.frustumM(mProjMatrix, 0, -ratio, ratio, -1, 1, 1, 2);&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    Matrix.setLookAtM(mVMatrix, 0,//
+            0, 0, cameraId == Camera.CameraInfo.CAMERA_FACING_FRONT ? -1 : 1, //eye
+            0f, 0f, 0f,//center
+            0f, 1f, 0f//up
+    );
+    //eye 坐标的eyez 正值时候看到的景物是折叠的
+
+    float y = ((maxHeight - height) / 1f / maxHeight);
+    Matrix.translateM(mVMatrix, 0,//
+            0, y, 0f//x,y,z
+    );
+
+    Matrix.rotateM(mVMatrix, 0, mRotation.asInt(), 0, 0, -1);
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Wed, 30 Sep 2015 00:00:00 +0800</pubDate>
+        <link>http://www.denghaizhu.com/2015/09/30/Android%20OpenGL%20es%20GPUImage%20convert.html</link>
+        <guid isPermaLink="true">http://www.denghaizhu.com/2015/09/30/Android%20OpenGL%20es%20GPUImage%20convert.html</guid>
         
-        <category>update</category>
         
       </item>
     
