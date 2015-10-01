@@ -5,7 +5,8 @@ layout: post
 # OkHttpClient添加拦截器
 
 初始化OkHttpClient
-```   
+
+```
 mOkHttpClient = new OkHttpClient();
         mOkHttpClient.setConnectTimeout(DEFAULT_CONNECTION_TIMEOUT, TimeUnit.SECONDS);
         mOkHttpClient.setReadTimeout(DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS);
@@ -21,7 +22,7 @@ mOkHttpClient = new OkHttpClient();
             }
 
         });
-```
+        ```
 
 其他的就和标准的差不多
 
