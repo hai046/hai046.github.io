@@ -7,7 +7,7 @@ layout: post
 初始化OkHttpClient
 
 ```
-mOkHttpClient = new OkHttpClient();
+        mOkHttpClient = new OkHttpClient();
         mOkHttpClient.setConnectTimeout(DEFAULT_CONNECTION_TIMEOUT, TimeUnit.SECONDS);
         mOkHttpClient.setReadTimeout(DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS);
         mOkHttpClient.networkInterceptors().add(new Interceptor() {
