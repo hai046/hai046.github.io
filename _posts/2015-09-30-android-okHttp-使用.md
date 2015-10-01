@@ -11,7 +11,6 @@ layout: post
         mOkHttpClient.setConnectTimeout(DEFAULT_CONNECTION_TIMEOUT, TimeUnit.SECONDS);
         mOkHttpClient.setReadTimeout(DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS);
         mOkHttpClient.networkInterceptors().add(new Interceptor() {
-
             @Override
             public Response intercept(Chain chain) throws IOException {
                 return chain.proceed(chain.request()//发起请求
@@ -22,7 +21,7 @@ layout: post
             }
 
         });
-        ```
+```
 
 其他的就和标准的差不多
 
