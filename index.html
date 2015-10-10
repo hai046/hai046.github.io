@@ -1,22 +1,9 @@
----
-layout: default
----
-
-<div class="home">
-
-  <h1 class="page-heading">Posts</h1>
-
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
-
-
-</div>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>frameset 演示</title>
+</head>
+<frameset  noresize="noresize">
+    <frame src="_book/index.html" name="main"  />
+  
+</frameset>
+</html>
