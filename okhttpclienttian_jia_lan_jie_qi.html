@@ -5,9 +5,9 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>introduction | Personal notes</title>
+        <title>OkHttpClient添加拦截器 | Personal notes</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="个人笔记">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
         
         
@@ -31,8 +31,10 @@
         
     
     
-    <link rel="next" href="./chapter1.html" />
+    <link rel="next" href="./java.html" />
     
+    
+    <link rel="prev" href="./android_opengl-es_gpuimage.html" />
     
 
         
@@ -40,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
+    <div class="book" data-level="1.7" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -58,7 +60,7 @@
 
             
     
-        <li class="chapter active" data-level="0" data-path="index.html">
+        <li class="chapter " data-level="0" data-path="index.html">
             
                 
                     <a href="./index.html">
@@ -177,7 +179,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="okhttpclienttian_jia_lan_jie_qi.html">
+        <li class="chapter active" data-level="1.7" data-path="okhttpclienttian_jia_lan_jie_qi.html">
             
                 
                     <a href="./okhttpclienttian_jia_lan_jie_qi.html">
@@ -416,9 +418,24 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="personal-notes">Personal notes</h1>
-<p>&#x4E2A;&#x4EBA;&#x7B14;&#x8BB0;</p>
-<p>&#x5B8C;&#x5584;&#x4E2D;  O(&#x2229;_&#x2229;)O</p>
+                        <h1 id="okhttpclient%E6%B7%BB%E5%8A%A0%E6%8B%A6%E6%88%AA%E5%99%A8">OkHttpClient&#x6DFB;&#x52A0;&#x62E6;&#x622A;&#x5668;</h1>
+<p>&#x521D;&#x59CB;&#x5316;OkHttpClient</p>
+<pre><code>        mOkHttpClient = new OkHttpClient();
+        mOkHttpClient.setConnectTimeout(DEFAULT_CONNECTION_TIMEOUT, TimeUnit.SECONDS);
+        mOkHttpClient.setReadTimeout(DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS);
+        mOkHttpClient.networkInterceptors().add(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                return chain.proceed(chain.request()//&#x53D1;&#x8D77;&#x8BF7;&#x6C42;
+                        .newBuilder()//&#x5728;&#x539F;&#x6765;&#x53D1;&#x9001;&#x8BF7;&#x6C42;&#x7684;&#x57FA;&#x7840;&#x4E0A; &#x751F;&#x6210;&#x65B0;&#x7684;builder
+                        .header(&quot;token&quot;, &quot;...&quot;)//&#x6DFB;&#x52A0;header   &#x4F8B;&#x5982;&#x5168;&#x5C40;&#x6DFB;&#x52A0;token  UA &#x4EC0;&#x4E48;&#x7684;
+                        .build());
+                //                return null;
+            }
+
+        });
+</code></pre><p>&#x5176;&#x4ED6;&#x7684;&#x5C31;&#x548C;&#x6807;&#x51C6;&#x7684;&#x5DEE;&#x4E0D;&#x591A;</p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5199;&#x6807;&#x51C6;&#x7684;interface &#xFF0C;&#x8FD9;&#x6837;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x65B9;&#x4FBF;&#x7684;&#x5207;&#x6362;&#x5230;AndroidHttpClient &#x6216;&#x8005;&#x662F;URLConection&#x4EC0;&#x4E48;&#x7684;</p>
 
                     
                     </section>
@@ -429,8 +446,10 @@
         </div>
 
         
+        <a href="./android_opengl-es_gpuimage.html" class="navigation navigation-prev " aria-label="Previous page: Android OpenGL-ES GPUImage"><i class="fa fa-angle-left"></i></a>
         
-        <a href="./chapter1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Android"><i class="fa fa-angle-right"></i></a>
+        
+        <a href="./java.html" class="navigation navigation-next " aria-label="Next page: 服务端"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

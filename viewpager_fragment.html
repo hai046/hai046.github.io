@@ -5,9 +5,9 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>introduction | Personal notes</title>
+        <title>ViewPager Fragment | Personal notes</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="个人笔记">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
         
         
@@ -31,8 +31,10 @@
         
     
     
-    <link rel="next" href="./chapter1.html" />
+    <link rel="next" href="./androidaudio.html" />
     
+    
+    <link rel="prev" href="./gao_si_mo_hu_xiao_guo.html" />
     
 
         
@@ -40,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
+    <div class="book" data-level="1.2" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -58,7 +60,7 @@
 
             
     
-        <li class="chapter active" data-level="0" data-path="index.html">
+        <li class="chapter " data-level="0" data-path="index.html">
             
                 
                     <a href="./index.html">
@@ -102,7 +104,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="viewpager_fragment.html">
+        <li class="chapter active" data-level="1.2" data-path="viewpager_fragment.html">
             
                 
                     <a href="./viewpager_fragment.html">
@@ -416,10 +418,28 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="personal-notes">Personal notes</h1>
-<p>&#x4E2A;&#x4EBA;&#x7B14;&#x8BB0;</p>
-<p>&#x5B8C;&#x5584;&#x4E2D;  O(&#x2229;_&#x2229;)O</p>
+                        <h1 id="viewpager-fragment-fix">ViewPager Fragment  FIX</h1>
+<p>Err Log&#xFF1A;</p>
+<pre><code>1&#xFF0C;make sure class name exists, is public, 
+and has an empty constructor that is public at
+android.support.v4.app.Fragment.instantiate
+</code></pre><p>&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#xFF1A;</p>
+<pre><code>&#x5728;&#x9875;&#x9762;&#x91CC;&#x9762;  &#x7EE7;&#x627F;DesFragment &#x6DFB;&#x52A0;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;&#x5373;&#x53EF; 
+&#x4F2A;&#x4EE3;&#x7801;&#x5982;&#x4E0B;
 
+    public static class XXXFragment extends DesFragment {
+
+    public XXXFragment() {
+
+    }
+
+    public static FragmentRegisterSchool getInstance(T bundle) {
+        XXXFragment fragment = new XXXFragment();
+        fragment.setXXX(bundle);
+        return fragment;
+    }
+    }
+</code></pre>
                     
                     </section>
                 
@@ -429,8 +449,10 @@
         </div>
 
         
+        <a href="./gao_si_mo_hu_xiao_guo.html" class="navigation navigation-prev " aria-label="Previous page: 高斯模糊效果"><i class="fa fa-angle-left"></i></a>
         
-        <a href="./chapter1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Android"><i class="fa fa-angle-right"></i></a>
+        
+        <a href="./androidaudio.html" class="navigation navigation-next " aria-label="Next page: android_audio"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

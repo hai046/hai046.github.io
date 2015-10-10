@@ -5,9 +5,9 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>introduction | Personal notes</title>
+        <title>高斯模糊效果 | Personal notes</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="个人笔记">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
         
         
@@ -31,8 +31,10 @@
         
     
     
-    <link rel="next" href="./chapter1.html" />
+    <link rel="next" href="./viewpager_fragment.html" />
     
+    
+    <link rel="prev" href="./chapter1.html" />
     
 
         
@@ -40,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
+    <div class="book" data-level="1.1" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -58,7 +60,7 @@
 
             
     
-        <li class="chapter active" data-level="0" data-path="index.html">
+        <li class="chapter " data-level="0" data-path="index.html">
             
                 
                     <a href="./index.html">
@@ -87,7 +89,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.1" data-path="gao_si_mo_hu_xiao_guo.html">
+        <li class="chapter active" data-level="1.1" data-path="gao_si_mo_hu_xiao_guo.html">
             
                 
                     <a href="./gao_si_mo_hu_xiao_guo.html">
@@ -416,10 +418,36 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="personal-notes">Personal notes</h1>
-<p>&#x4E2A;&#x4EBA;&#x7B14;&#x8BB0;</p>
-<p>&#x5B8C;&#x5584;&#x4E2D;  O(&#x2229;_&#x2229;)O</p>
-
+                        <h1 id="%E9%AB%98%E6%96%AF%E6%A8%A1%E7%B3%8A%E6%95%88%E6%9E%9C">&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x6548;&#x679C;</h1>
+<p>Android 4.2.1&#x53CA;&#x5176;&#x4EE5;&#x540E;&#x53EF;&#x4EE5;&#x7528;&#x7CFB;&#x7EDF;&#x81EA;&#x5E26;&#x7684;&#x9AD8;&#x65AF;&#x6A21;&#x7CCA;&#x6548;&#x679C;&#x4E86;</p>
+<pre><code> if (Build.VERSION.SDK_INT &gt; 16) {
+                    bitmap = bitmap.copy(bitmap.getConfig(), true);
+                    final RenderScript rs = RenderScript.create(AppContext.getContext());
+                    final Allocation input = Allocation.createFromBitmap(rs, bitmap,
+                            Allocation.MipmapControl.MIPMAP_NONE, Allocation.USAGE_SCRIPT);
+                    final Allocation output = Allocation.createTyped(rs, input.getType());
+                    final ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs,
+                            Element.U8_4(rs));
+                    script.setRadius(14);
+                    script.setInput(input);
+                    script.forEach(output);
+                    output.copyTo(bitmap);
+                    rs.destory();//&#x5FC5;&#x987B;&#x8981;&#x5173;&#x95ED;&#xFF0C;&#x4E0D;&#x7136;&#x4F1A;&#x5185;&#x5B58;&#x6CC4;&#x9732;
+                    return bitmap;
+                }
+</code></pre><p>&#x7CFB;&#x7EDF;&#x76F4;&#x63A5;&#x63D0;&#x4F9B;&#xFF0C;&#x4E5F;&#x662F;&#x76F4;&#x63A5;&#x8C03;&#x7528;GPU&#x6765;&#x6E32;&#x67D3;&#x5904;&#x7406;&#xFF0C;&#x4E0D;&#x8FC7;&#x8FD9;&#x6837;&#x611F;&#x89C9;&#x6BD4;&#x81EA;&#x5DF1;&#x5199;&#x66F4;easy&#xFF0C;&#x53E6;&#x5916;&#x8FD8;&#x6709;&#x5176;&#x4ED6;&#x7684;</p>
+<pre><code>ScriptGroup.Builder    Helper class to build a ScriptGroup. 
+ScriptIntrinsic    Base class for all Intrinsic scripts. 
+ScriptIntrinsic3DLUT    Intrinsic for converting RGB to RGBA by using a 3D lookup table. 
+ScriptIntrinsicBlend    Intrinsic kernels for blending two Allocation objects. 
+ScriptIntrinsicBlur    Intrinsic Gausian blur filter. 
+ScriptIntrinsicColorMatrix    Intrinsic for applying a color matrix to allocations. 
+ScriptIntrinsicConvolve3x3    Intrinsic for applying a 3x3 convolve to an allocation. 
+ScriptIntrinsicConvolve5x5    Intrinsic for applying a 5x5 convolve to an allocation. 
+ScriptIntrinsicHistogram    Intrinsic Histogram filter. 
+ScriptIntrinsicLUT    Intrinsic for applying a per-channel lookup table. 
+ScriptIntrinsicYuvToRGB    Intrinsic for converting an Android YUV buffer to RGB.
+</code></pre>
                     
                     </section>
                 
@@ -429,8 +457,10 @@
         </div>
 
         
+        <a href="./chapter1.html" class="navigation navigation-prev " aria-label="Previous page: Android"><i class="fa fa-angle-left"></i></a>
         
-        <a href="./chapter1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Android"><i class="fa fa-angle-right"></i></a>
+        
+        <a href="./viewpager_fragment.html" class="navigation navigation-next " aria-label="Next page: ViewPager Fragment"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

@@ -5,9 +5,9 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>introduction | Personal notes</title>
+        <title>ffmpeg 命令使用方法 | Personal notes</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="个人笔记">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
         
         
@@ -31,8 +31,8 @@
         
     
     
-    <link rel="next" href="./chapter1.html" />
     
+    <link rel="prev" href="./shi_yong_bi_ji.html" />
     
 
         
@@ -40,7 +40,7 @@
     <body>
         
         
-    <div class="book" data-level="0" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
+    <div class="book" data-level="2.2.1" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -58,7 +58,7 @@
 
             
     
-        <li class="chapter active" data-level="0" data-path="index.html">
+        <li class="chapter " data-level="0" data-path="index.html">
             
                 
                     <a href="./index.html">
@@ -265,7 +265,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.2.1" data-path="ffmpeg_ming_ling_shi_yong_fang_fa.html">
+        <li class="chapter active" data-level="2.2.1" data-path="ffmpeg_ming_ling_shi_yong_fang_fa.html">
             
                 
                     <a href="./ffmpeg_ming_ling_shi_yong_fang_fa.html">
@@ -416,9 +416,16 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="personal-notes">Personal notes</h1>
-<p>&#x4E2A;&#x4EBA;&#x7B14;&#x8BB0;</p>
-<p>&#x5B8C;&#x5584;&#x4E2D;  O(&#x2229;_&#x2229;)O</p>
+                        <h1 id="ffmpeg-%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">ffmpeg &#x547D;&#x4EE4;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;</h1>
+<h1 id="%E4%BB%8E%E8%A7%86%E9%A2%91%E6%88%AA%E5%8F%96image">&#x4ECE;&#x89C6;&#x9891;&#x622A;&#x53D6;image</h1>
+<pre><code>ffmpeg -ss 01:35:00  -i &#x6E2F;&#x56E7;\ \(&#x84DD;&#x5149;&#x539F;&#x76D8;\).mkv   -y images/image_%02d.png
+</code></pre><p>&#x540E;&#x9762;&#x7684;%2d &#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x547D;&#x540D;&#x89C4;&#x5219;&#xFF0C;&#x4F1A;&#x622A;&#x53D6;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x56FE;&#x7247;  &#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x5B89;&#x88C5;&#x8FD9;&#x79CD;&#x547D;&#x540D;&#x89C4;&#x5219;&#x6765;&#x7684;&#x8BDD;&#x56DE;&#x62A5;&#x9519;</p>
+<pre><code>[image2 @ 0x7fcde9876000] Could not get frame filename number 2 from pattern &apos;images/image_01.png&apos; (either set updatefirst or use a pattern like %03d within the filename pattern)
+av_interleaved_write_frame(): Invalid argument
+</code></pre><p>&#x53E6;&#x5916;  &#x53C2;&#x6570;-ss &#x662F;&#x5F00;&#x59CB;&#x622A;&#x53D6;&#x7684;&#x65F6;&#x95F4;&#x70B9;  &#x5FC5;&#x987B;&#x653E;&#x5728;&#x524D;&#x9762;  &#x662F;&#x5148;seek&#x7136;&#x540E;&#x5728;&#x622A;&#x5C4F; &#x5426;&#x5219;&#x975E;&#x5E38;&#x6162; </p>
+<h1 id="%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2">&#x683C;&#x5F0F;&#x8F6C;&#x6362;</h1>
+<pre><code>fmpeg -i &#x6E2F;&#x56E7;\ \(&#x84DD;&#x5149;&#x539F;&#x76D8;\).mkv -acodec copy -vcodec libx264  -ss 00:01:00 -t 00:01:00 -f mp4 01.mp4
+</code></pre><p>-t &#x662F;&#x622A;&#x53D6;&#x7684;duration</p>
 
                     
                     </section>
@@ -429,8 +436,8 @@
         </div>
 
         
+        <a href="./shi_yong_bi_ji.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 使用笔记"><i class="fa fa-angle-left"></i></a>
         
-        <a href="./chapter1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Android"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

@@ -5,9 +5,9 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>introduction | Personal notes</title>
+        <title>暂停正在播放的音乐 | Personal notes</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="个人笔记">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
         
         
@@ -31,8 +31,10 @@
         
     
     
-    <link rel="next" href="./chapter1.html" />
+    <link rel="next" href="./zai_android_shi_yong_lambda_biao_da_shi.html" />
     
+    
+    <link rel="prev" href="./androidaudio.html" />
     
 
         
@@ -40,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
+    <div class="book" data-level="1.4" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -58,7 +60,7 @@
 
             
     
-        <li class="chapter active" data-level="0" data-path="index.html">
+        <li class="chapter " data-level="0" data-path="index.html">
             
                 
                     <a href="./index.html">
@@ -132,7 +134,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="qi_ta.html">
+        <li class="chapter active" data-level="1.4" data-path="qi_ta.html">
             
                 
                     <a href="./qi_ta.html">
@@ -416,10 +418,36 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="personal-notes">Personal notes</h1>
-<p>&#x4E2A;&#x4EBA;&#x7B14;&#x8BB0;</p>
-<p>&#x5B8C;&#x5584;&#x4E2D;  O(&#x2229;_&#x2229;)O</p>
+                        <h1 id="%E6%9A%82%E5%81%9C%E6%AD%A3%E5%9C%A8%E6%92%AD%E6%94%BE%E7%9A%84%E9%9F%B3%E4%B9%90">&#x6682;&#x505C;&#x6B63;&#x5728;&#x64AD;&#x653E;&#x7684;&#x97F3;&#x4E50;</h1>
+<pre><code>public static void pauseMusic() {
 
+    KeyEvent ke = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PAUSE);
+    Intent intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+    intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+
+    // construct a PendingIntent for the media button and unregister it
+    Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+    PendingIntent pi = PendingIntent.getBroadcast(AppContext.getContext(),
+            0/*requestCode, ignored*/, mediaButtonIntent, 0/*flags*/);
+    intent.putExtra(Intent.EXTRA_KEY_EVENT, ke);
+    sendKeyEvent(pi, AppContext.getContext(), intent);
+
+    ke = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PAUSE);
+    intent.putExtra(Intent.EXTRA_KEY_EVENT, ke);
+    sendKeyEvent(pi, AppContext.getContext(), intent);
+
+    //        android.intent.action.MEDIA_BUTTON
+
+}
+
+private static void sendKeyEvent(PendingIntent pi, Context context, Intent intent) {
+    try {
+        pi.send(context, 0, intent);
+    } catch (PendingIntent.CanceledException e) {
+        Log.e(TAG, &quot;Error sending media key down event:&quot;, e);
+    }
+}
+</code></pre>
                     
                     </section>
                 
@@ -429,8 +457,10 @@
         </div>
 
         
+        <a href="./androidaudio.html" class="navigation navigation-prev " aria-label="Previous page: android_audio"><i class="fa fa-angle-left"></i></a>
         
-        <a href="./chapter1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Android"><i class="fa fa-angle-right"></i></a>
+        
+        <a href="./zai_android_shi_yong_lambda_biao_da_shi.html" class="navigation navigation-next " aria-label="Next page: 在android使用lambda表达式"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

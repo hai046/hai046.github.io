@@ -5,9 +5,9 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>introduction | Personal notes</title>
+        <title>Android OpenGL-ES GPUImage | Personal notes</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="个人笔记">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
         
         
@@ -31,8 +31,10 @@
         
     
     
-    <link rel="next" href="./chapter1.html" />
+    <link rel="next" href="./okhttpclienttian_jia_lan_jie_qi.html" />
     
+    
+    <link rel="prev" href="./zai_android_shi_yong_lambda_biao_da_shi.html" />
     
 
         
@@ -40,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
+    <div class="book" data-level="1.6" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -58,7 +60,7 @@
 
             
     
-        <li class="chapter active" data-level="0" data-path="index.html">
+        <li class="chapter " data-level="0" data-path="index.html">
             
                 
                     <a href="./index.html">
@@ -162,7 +164,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="android_opengl-es_gpuimage.html">
+        <li class="chapter active" data-level="1.6" data-path="android_opengl-es_gpuimage.html">
             
                 
                     <a href="./android_opengl-es_gpuimage.html">
@@ -416,10 +418,48 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="personal-notes">Personal notes</h1>
-<p>&#x4E2A;&#x4EBA;&#x7B14;&#x8BB0;</p>
-<p>&#x5B8C;&#x5584;&#x4E2D;  O(&#x2229;_&#x2229;)O</p>
+                        <h1 id="android-opengl-es-gpuimage">Android OpenGL-ES GPUImage</h1>
+<h2 id="1%EF%BC%8Cyuv%E8%BD%ACrgb">1&#xFF0C;YUV&#x8F6C;RGB</h2>
+<p> andorid  &#x7684;camera&#x6570;&#x636E;&#x662F;YUV&#x6570;&#x636E;&#xFF0C;&#x9700;&#x8981;&#x8F6C;&#x6362;&#x6210;rgb&#xFF0C;&#x4F46;&#x662F;&#x666E;&#x901A;&#x7684;&#x8F6C;&#x6362;&#x6548;&#x7387;&#x4E0D;&#x9AD8;&#xFF0C;&#x5373;&#x4F7F;&#x4F7F;&#x7528;jni&#x8F6C;&#x6362;&#x4E5F;&#x4F9D;&#x7136;&#x5982;&#x6B64;</p>
+<p>&#x4FEE;&#x6539;fragment shader&#x811A;&#x672C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code>    varying highp vec2 textureCoordinate;
+    uniform sampler2D inputImageTexture;
+    uniform sampler2D uvTexture;
+    precision mediump float;
+    void main(){
+         vec4 y = vec4((texture2D(inputImageTexture, textureCoordinate).r - 16./255.) * 1.164);  
+         vec4 u = vec4(texture2D(uvTexture, textureCoordinate).a - 128./255.);  
+        vec4 v = vec4(texture2D(uvTexture, textureCoordinate).r - 128./255.);  
+        y += v * vec4(1.596, -0.813, 0, 0);
+        y += u * vec4(0, -0.392, 2.017, 0); 
+        y.a = 1.0;
+        gl_FragColor = y;//texture2D(inputImageTexture, textureCoordinate);
+               }
+</code></pre><p>&#x8FD9;&#x662F;&#x662F;&#x5173;&#x952E;&#x4EE3;&#x7801; YUV&#x6570;&#x636E;&#x8F6C;&#x6362;&#x6210;RGBA</p>
+<h3 id="2%EF%BC%8C%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2">2&#xFF0C;&#x5750;&#x6807;&#x8F6C;&#x6362;</h3>
+<p>&#x5750;&#x6807;&#x8F6C;&#x6362; &#x4F8B;&#x5982;&#x5E73;&#x79FB;&#x7F29;&#x653E;&#x65CB;&#x8F6C;&#x7B49;
+&#x5750;&#x6807;&#x811A;&#x672C;</p>
+<pre><code>    VERTEX_SHADER = &quot;uniform mat4 uMVPMatrix;\n&quot;
+                + &quot;attribute vec4 position;\n&quot; + &quot;attribute vec4 inputTextureCoordinate;\n&quot; + &quot; \n&quot;
+                + &quot;varying vec2 textureCoordinate;\n&quot; + &quot; \n&quot; + &quot;void main()\n&quot; + &quot;{\n&quot;
+                + &quot;    gl_Position = uMVPMatrix * position; \n&quot;
+                + &quot;    textureCoordinate = inputTextureCoordinate.xy;\n&quot; + &quot;}&quot;;
+</code></pre><p>&#x591A;&#x6DFB;&#x52A0;&#x4E86;uMVPMatrix  </p>
+<p>   Matrix.frustumM(mProjMatrix, 0, -ratio, ratio, -1, 1, 1, 2);</p>
+<pre><code>    Matrix.setLookAtM(mVMatrix, 0,//
+            0, 0, cameraId == Camera.CameraInfo.CAMERA_FACING_FRONT ? -1 : 1, //eye
+            0f, 0f, 0f,//center
+            0f, 1f, 0f//up
+    );
+    //eye &#x5750;&#x6807;&#x7684;eyez &#x6B63;&#x503C;&#x65F6;&#x5019;&#x770B;&#x5230;&#x7684;&#x666F;&#x7269;&#x662F;&#x6298;&#x53E0;&#x7684;
 
+    float y = ((maxHeight - height) / 1f / maxHeight);
+    Matrix.translateM(mVMatrix, 0,//
+            0, y, 0f//x,y,z
+    );
+
+    Matrix.rotateM(mVMatrix, 0, mRotation.asInt(), 0, 0, -1);
+</code></pre>
                     
                     </section>
                 
@@ -429,8 +469,10 @@
         </div>
 
         
+        <a href="./zai_android_shi_yong_lambda_biao_da_shi.html" class="navigation navigation-prev " aria-label="Previous page: 在android使用lambda表达式"><i class="fa fa-angle-left"></i></a>
         
-        <a href="./chapter1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Android"><i class="fa fa-angle-right"></i></a>
+        
+        <a href="./okhttpclienttian_jia_lan_jie_qi.html" class="navigation navigation-next " aria-label="Next page: OkHttpClient添加拦截器"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

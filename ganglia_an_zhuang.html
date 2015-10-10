@@ -5,9 +5,9 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>introduction | Personal notes</title>
+        <title>ganglia 安装 | Personal notes</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="个人笔记">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
         
         
@@ -31,8 +31,10 @@
         
     
     
-    <link rel="next" href="./chapter1.html" />
+    <link rel="next" href="./shi_yong_bi_ji.html" />
     
+    
+    <link rel="prev" href="./pei_zhi.html" />
     
 
         
@@ -40,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
+    <div class="book" data-level="2.1.1" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -58,7 +60,7 @@
 
             
     
-        <li class="chapter active" data-level="0" data-path="index.html">
+        <li class="chapter " data-level="0" data-path="index.html">
             
                 
                     <a href="./index.html">
@@ -229,7 +231,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="2.1.1" data-path="ganglia_an_zhuang.html">
+        <li class="chapter active" data-level="2.1.1" data-path="ganglia_an_zhuang.html">
             
                 
                     <a href="./ganglia_an_zhuang.html">
@@ -416,9 +418,103 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="personal-notes">Personal notes</h1>
-<p>&#x4E2A;&#x4EBA;&#x7B14;&#x8BB0;</p>
-<p>&#x5B8C;&#x5584;&#x4E2D;  O(&#x2229;_&#x2229;)O</p>
+                        <h1 id="ganglia-%E5%AE%89%E8%A3%85">ganglia &#x5B89;&#x88C5;</h1>
+<h3 id="%E6%9C%8D%E5%8A%A1%E7%AB%AF-ganglia">&#x670D;&#x52A1;&#x7AEF; ganglia</h3>
+<p>&#x547D;&#x4EE4;&#xFF1A;
+<code>yum install ganglia ganglia-gmetad ganglia-web ganglia-gmond</code></p>
+<p>&#x4FEE;&#x6539;&#x914D;&#x7F6E;</p>
+<pre><code class="lang-/etc/ganglia/gmetad.conf```">
+
+&#x4FEE;&#x6539;&#x6587;&#x4EF6;/etc/ganglia/gmetad.conf
+
+&gt;data_source &quot;jiemo_ganglia_cluster&quot; localhost
+setuid_username ganglia
+
+### &#x521B;&#x5EFA;rrds&#x76EE;&#x5F55;
+  mkdir -p /var/lib/ganglia/rrds
+  chown ganglia:ganglia /var/lib/ganglia/rrds
+  chmod a+w /var/lib/ganglia/rrds
+
+###&#x5BA2;&#x6237;&#x7AEF; ganglia-gmond
+
+&#x547D;&#x4EE4;&#xFF1A;
+```yum install ganglia ganglia-gmond
+</code></pre>
+<p>&#x4FEE;&#x6539;&#x914D;&#x7F6E;
+<code>vim /etc/ganglia/gmond.conf</code></p>
+<blockquote>
+<p>#1,&#x4FEE;&#x6539;&#x540D;&#x5B57;
+cluster {
+  name = &quot;JiemoApp-ganglia&quot;
+  }</p>
+<p>#2&#x4FEE;&#x6539;&#x63CF;&#x8FF0;
+host {
+        location = &quot;grape&quot;
+    }</p>
+<p>#3 &#x4FEE;&#x6539;&#x53D1;&#x9001;&#x5230;&#x670D;&#x52A1;&#x5668;&#x7684;&#x914D;&#x7F6E;
+udp_send_channel {
+  host=10.44.138.0
+  port = 8649
+  ttl = 1
+ }</p>
+<p>#4&#x63A5;&#x6536;&#x914D;&#x7F6E;
+udp_recv_channel {
+  port = 8649
+  }</p>
+</blockquote>
+<h4 id="%E5%90%AF%E5%8A%A8">&#x542F;&#x52A8;</h4>
+<p><code>service gmond start//&#x542F;&#x52A8;
+    service gmond status//&#x67E5;&#x770B;&#x72B6;&#x6001;</code></p>
+<h2 id="%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">&#x53C2;&#x8003;&#x8D44;&#x6599;</h2>
+<blockquote>
+<ol>
+<li><p>&#x5B89;&#x88C5;php&#x652F;&#x6301;
+yum install php-common php-cli php-gb php</p>
+</li>
+<li><p>&#x5B89;&#x88C5;ganglia&#x53CA;&#x5176;&#x76F8;&#x5173;&#x7EC4;&#x4EF6;
+server&#x7AEF;&#xFF1A;yum install rrdtool rrdtool-devel ganglia-web ganglia-gmetad ganglia-gmond ganglia-gmond-python httpd apr-devel zlib-devel libconfuse-devel expat-devel pcre-devel 
+client&#x7AEF;&#xFF1A;yum install ganglia-gmond</p>
+</li>
+<li><p>&#x76F8;&#x5173;&#x914D;&#x7F6E;
+&#x4FEE;&#x6539;/etc/ganglia/gmond.conf
+cluster {
+name = &quot;Cynric&quot;  //&#x8FD9;&#x4E2A;&#x662F;&#x6574;&#x4E2A;&#x96C6;&#x7FA4;&#x7684;&#x540D;&#x5B57;
+}</p>
+</li>
+</ol>
+<p>dup_send_channel {
+  host = 127.0.0.1  // host&#x4E3A;&#x5355;&#x64AD;&#x6A21;&#x5F0F;  mcast_join&#x4E3A;&#x591A;&#x64AD;&#x6A21;&#x5F0F;
+ }</p>
+<p>udp_recv_channel {
+  port = 8649   // &#x5982;&#x679C;&#x662F;&#x7528;&#x5355;&#x64AD;&#x6A21;&#x5F0F;&#x5219;&#x8981;&#x5220;&#x9664;mcast_join&#x548C;bind&#x4E24;&#x4E2A;&#x9009;&#x9879;
+ }</p>
+<p>&#x5BA2;&#x6237;&#x7AEF;
+ &#x4FEE;&#x6539;&#x6587;&#x4EF6;/etc/ganglia/gmetad.conf
+ data_source &quot;jiemoapp_ganglia&quot; localhost   //Cynric&#x662F;gmond.conf&#x4E2D;cluster&#x91CC;name&#x7684;&#x540D;&#x5B57;  localhost&#x5219;&#x9700;&#x8981;&#x662F;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x7684;ip</p>
+<p>setuid_username &quot;ganglia&quot;</p>
+<ol>
+<li><p>&#x521B;&#x5EFA;rrds&#x76EE;&#x5F55;
+mkdir -p /var/lib/ganglia/rrds
+chown ganglia:ganglia /var/lib/ganglia/rrds
+chmod a+w /var/lib/ganglia/rrds</p>
+</li>
+<li><p>&#x5173;&#x95ED;SELinux&#x4E0D;&#x7136;&#x65E0;&#x6CD5;&#x8BBF;&#x95EE;&#x76D1;&#x63A7;&#x7684;web&#x7684;&#x9875;&#x9762;
+vi /etc/selinux/config
+SELINUX=disable
+&#x4EE5;&#x4E0A;&#x65B9;&#x6CD5;&#x9700;&#x8981;&#x91CD;&#x542F;&#x673A;&#x5668;</p>
+<p>&#x53EF;&#x4EE5;&#x5728;&#x7EC8;&#x7AEF;&#x4E0A;&#x76F4;&#x63A5;&#x8F93;&#x5165;setenforce 0&#x5373;&#x53EF;</p>
+</li>
+<li><p>&#x542F;&#x52A8;&#x76F8;&#x5173;&#x670D;&#x52A1;
+service gmond restart
+service gmetad restart
+service httpd restart</p>
+</li>
+<li><p>&#x6D4F;&#x89C8;&#x5668;&#x4E2D;&#x8F93;&#x5165;127.0.0.1/ganglia&#x68C0;&#x9A8C;&#x662F;&#x5426;&#x6210;&#x529F;</p>
+</li>
+<li><p>&#x9047;&#x5230;&#x76F8;&#x5173;&#x95EE;&#x9898;&#x8BF7;&#x67E5;&#x770B;<a href="http://blog.csdn.net/cybercode/article/details/6210444" target="_blank">http://blog.csdn.net/cybercode/article/details/6210444</a></p>
+</li>
+</ol>
+</blockquote>
 
                     
                     </section>
@@ -429,8 +525,10 @@
         </div>
 
         
+        <a href="./pei_zhi.html" class="navigation navigation-prev " aria-label="Previous page: 配置"><i class="fa fa-angle-left"></i></a>
         
-        <a href="./chapter1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Android"><i class="fa fa-angle-right"></i></a>
+        
+        <a href="./shi_yong_bi_ji.html" class="navigation navigation-next " aria-label="Next page: 使用笔记"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

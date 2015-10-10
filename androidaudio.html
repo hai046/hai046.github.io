@@ -5,9 +5,9 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>introduction | Personal notes</title>
+        <title>android_audio | Personal notes</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="个人笔记">
+        <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
         
         
@@ -31,8 +31,10 @@
         
     
     
-    <link rel="next" href="./chapter1.html" />
+    <link rel="next" href="./qi_ta.html" />
     
+    
+    <link rel="prev" href="./viewpager_fragment.html" />
     
 
         
@@ -40,7 +42,7 @@
     <body>
         
         
-    <div class="book" data-level="0" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
+    <div class="book" data-level="1.3" data-basepath="." data-revision="Sat Oct 10 2015 23:09:53 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -58,7 +60,7 @@
 
             
     
-        <li class="chapter active" data-level="0" data-path="index.html">
+        <li class="chapter " data-level="0" data-path="index.html">
             
                 
                     <a href="./index.html">
@@ -117,7 +119,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="androidaudio.html">
+        <li class="chapter active" data-level="1.3" data-path="androidaudio.html">
             
                 
                     <a href="./androidaudio.html">
@@ -416,10 +418,127 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="personal-notes">Personal notes</h1>
-<p>&#x4E2A;&#x4EBA;&#x7B14;&#x8BB0;</p>
-<p>&#x5B8C;&#x5584;&#x4E2D;  O(&#x2229;_&#x2229;)O</p>
+                        <h1 id="android%E9%9F%B3%E9%A2%91%E5%BC%80%E5%8F%91">android&#x97F3;&#x9891;&#x5F00;&#x53D1;</h1>
+<p>&#x4F7F;&#x7528;AudioTrack</p>
+<p>&#x4F18;&#x70B9;&#xFF1A;&#x7075;&#x6D3B;&#x591A;&#x53D8;&#xFF0C;&#x81EA;&#x5DF1;&#x53EF;&#x63A7;&#xFF0C;&#x60F3;&#x64AD;&#x653E;&#x90A3;&#x91CC;&#x5C31;&#x662F;&#x90A3;&#x91CC;&#xFF0C;&#x81EA;&#x5DF1;&#x7F16;&#x89E3;&#x7801;&#x60F3;&#x600E;&#x4E48;&#x5F04;&#x5C31;&#x600E;&#x4E48;&#x5F04;</p>
+<p>&#x7F3A;&#x70B9;&#xFF1A;&#x5FC5;&#x987B;&#x81EA;&#x5DF1;&#x7F16;&#x89E3;&#x7801;&#xFF0C;&#x6BD4;MediaPlayer&#x590D;&#x6742;</p>
+<h3 id="%E5%A3%B0%E6%98%8E%EF%BC%9A">&#x58F0;&#x660E;&#xFF1A;</h3>
+<pre><code>private synchronized AudioTrack getAudioTracker() {
 
+    if (mAudioTracker == null) {
+        int minBufferSize = AudioTrack.getMinBufferSize(AudioLib.AUDIO_SAMPLE_RATE_IN_HZ,
+                AudioFormat.CHANNEL_OUT_MONO, AudioLib.AUDIO_FORMAT);
+        mStreamType = mSensorController.getStreamType();
+        mAudioTracker = new AudioTrack(mStreamType, AudioLib.AUDIO_SAMPLE_RATE_IN_HZ,
+                AudioFormat.CHANNEL_OUT_MONO, AudioLib.AUDIO_FORMAT, minBufferSize,
+                AudioTrack.MODE_STREAM);
+        Log.e(TAG, &quot;minBufferSize=&quot; + minBufferSize);//1280
+    }
+    mAudioTracker.flush();
+    return mAudioTracker;
+
+}
+</code></pre><p> &#x5FC5;&#x987B;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x83B7;&#x53D6;&#x6700;&#x65B0;&#x7684;&#x7F13;&#x5B58;&#x533A;&#x5927;&#x5C0F; minBufferSize
+ &#x8FD9;&#x4E2A;&#x503C;&#x662F;&#x6839;&#x636E;&#x6BD4;&#x7279;&#x7387;&#xFF0C;&#x97F3;&#x9891;&#x683C;&#x5F0F;&#x548C;&#x58F0;&#x9053;&#x6280;&#x672F;&#x51FA;&#x6765;&#x7684;&#xFF0C;&#x4E0D;&#x662F;&#x968F;&#x4FBF;&#x7ED9;&#x51FA;&#x7684;&#xFF0C;&#x4E00;&#x822C;&#x662F;320&#x7684;&#x6574;&#x6570;&#x500D;</p>
+<p>&#x5728;android&#x4E2D;&#x5982;&#x679C;&#x4F60;&#x60F3;&#x5207;&#x6362;&#x64AD;&#x653E;&#x6A21;&#x5F0F; &#x4F8B;&#x5982;&#x4ECE;&#x542C;&#x7B52;&#x6A21;&#x5F0F;&#x5207;&#x6362;&#x5230;&#x5916;&#x653E;&#x6A21;&#x5F0F;&#x7684;&#x65F6;&#x5019;&#x3010;&#x4FEE;&#x6539;StreamType&#x3011;&#xFF0C;&#x5FC5;&#x987B;&#x91CD;&#x65B0;&#x521D;&#x59CB;&#x5316;AudioTrack &#xFF0C;MediaPlayer&#x4EA6;&#x7136;</p>
+<h3 id="%E6%92%AD%E6%94%BE">&#x64AD;&#x653E;</h3>
+<p>&#x5176;&#x5B9E;&#x5C31;&#x662F;mAudioTracker.write(buffer, 0, lg);&#x6765;&#x64AD;&#x653E;buffer&#x91CC;&#x9762;&#x7684;&#x5185;&#x5BB9;
+&#x8FD9;&#x4E2A;buffer&#x5FC5;&#x987B;&#x662F;&#x89E3;&#x7801;&#x540E;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x5FC5;&#x987B;&#x662F;pcm&#x683C;&#x5F0F;</p>
+<p>&#x4F8B;&#x5982;&#x5982;&#x4E0B;code&#x3010;&#x672C;&#x4EBA;&#x4F7F;&#x7528;opus&#x7F16;&#x89E3;&#x7801;&#x3011;</p>
+<pre><code> while (!isExit()) {
+            lockWaitSyn();
+            if (isExit()) {
+                break;
+            }
+
+            if (Log.DEBUG) {
+                Log.d(TAG, &quot;Wav player begin&quot;);
+            }
+
+            try {
+                Utils.pauseMusic();
+                AudioLib.getLock().writeLock().lock();
+                registerSensor();
+                if (isPlaying) {
+
+                    mAudioTracker = getAudioTracker();
+                    if (mAudioTracker.getState() == AudioTrack.STATE_INITIALIZED) {
+                        int readSize = 0;
+
+                        mAudioTracker.play();
+
+                        int minSize = AudioLib.initDecorder(mAudioFilePath, 0);
+                        if (minSize &lt; 0) {
+                            Log.e(TAG, &quot;initDecorder errr&quot;);
+                            break;
+                        }
+                        short[] buffer = new short[minSize];
+                        prepareAsync();
+                        while (isPlaying) {
+                            mAudioTrackPlaying = true;
+
+                            checkPlayMode();
+
+                            if (isPaused) {
+                                mAudioTracker.pause();
+                                if (isPlaying) {
+                                    mAudioTracker.play();
+                                } else {
+                                    break;
+                                }
+                            }
+                            int lg = 0;
+                            if ((lg = AudioLib.decorderRead(buffer, 0, buffer.length)) &gt; 0) {
+                                mAudioTracker.write(buffer, 0, lg);
+                            } else {
+                                break;
+                            }
+                            mCurrentPosition += readSize;
+
+                        }
+                    }
+                }
+            } catch (Throwable e) {
+                Log.e(TAG, &quot;Wav player handle exception&quot;);
+                handleException(e);
+                String log = &quot;play failure cpu=&quot; + Utils.getProcessorType() + &quot; &quot;
+                        + e.getMessage();
+                StatisticsManager.getIntance().addCommonLog(log);
+                StatisticsManager.getIntance().commit();
+            } finally {
+                mAudioTrackPlaying = false;
+                reachAudioFileEnd();
+                AudioLib.destoryDecorder();
+                AudioLib.getLock().writeLock().unlock();
+                stopPlay();
+                AudioPlayerController.getIntance().playComplete();
+                unregisterSensor();
+                if (Log.DEBUG) {
+                    Log.d(TAG, &quot;Wav player end&quot;);
+                }
+            }
+        }
+    }
+</code></pre><p>&#x6CE8;&#x610F;&#x5982;&#x679C;&#x5982;&#x679C;&#x5728;&#x58F0;&#x660E;&#x7684;&#x65F6;&#x5019;&#x8BBE;&#x7F6E;stremType  &#x4F8B;&#x5982;music/in_call&#x6A21;&#x5F0F;  &#x542C;&#x7B52;&#x4F1A;&#x6BD4;&#x8F83;&#x5C0F;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;
+&#x8BBE;&#x7F6E;</p>
+<pre><code>mAudioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+            mAudioManager.setSpeakerphoneOn(true/false);
+</code></pre><p>&#x5B8C;&#x6574;code:</p>
+<pre><code>        if (mAudioManager != null) {
+            if (mStreamType == AudioManager.STREAM_MUSIC) {
+                mAudioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+                mAudioManager.setSpeakerphoneOn(true);
+            } else if (mStreamType == AudioManager.STREAM_VOICE_CALL) {
+                mAudioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+                mAudioManager.setSpeakerphoneOn(false);
+            }
+
+        }
+
+        mAudioTracker = new AudioTrack(AudioManager.STREAM_MUSIC, AudioLib.AUDIO_SAMPLE_RATE_IN_HZ,
+                AudioFormat.CHANNEL_OUT_MONO, AudioLib.AUDIO_FORMAT, minBufferSize,
+                AudioTrack.MODE_STREAM);
+</code></pre>
                     
                     </section>
                 
@@ -429,8 +548,10 @@
         </div>
 
         
+        <a href="./viewpager_fragment.html" class="navigation navigation-prev " aria-label="Previous page: ViewPager Fragment"><i class="fa fa-angle-left"></i></a>
         
-        <a href="./chapter1.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Android"><i class="fa fa-angle-right"></i></a>
+        
+        <a href="./qi_ta.html" class="navigation navigation-next " aria-label="Next page: 暂停正在播放的音乐"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
