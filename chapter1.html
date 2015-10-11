@@ -46,7 +46,7 @@
     <body>
         
         
-    <div class="book" data-level="1" data-basepath="." data-revision="Sun Oct 11 2015 11:23:11 GMT+0800 (CST)">
+    <div class="book" data-level="1" data-basepath="." data-revision="Sun Oct 11 2015 11:38:34 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -194,6 +194,13 @@
                         
                         OkHttpClient添加拦截器
                     </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+            <span><b>1.8.</b> Android Design Support Library</span>
             
             
         </li>
@@ -453,8 +460,36 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="android">Android</h1>
+                        <h1 id="android-design-support-library">Android Design Support Library</h1>
+<p>&#x4F7F;&#x7528;&#x8BE5;support &#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x6700;&#x65B0;&#x7684;android <a href="https://www.google.com/design/spec/material-design/introduction.html" target="_blank">Material design </a></p>
+<p>&#x5177;&#x4F53;blog @</p>
+<p><a href="http://android-developers.blogspot.jp/2015/05/android-design-support-library.html" target="_blank">http://android-developers.blogspot.jp/2015/05/android-design-support-library.html</a></p>
+<p>&#x4F8B;&#x5982;&#x4E00;&#x4E2A;&#x6700;&#x7B80;&#x5355;&#x7684;&#x5E03;&#x5C40;</p>
+<pre><code> &lt;android.support.design.widget.CoordinatorLayout
+        xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+        xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;&gt;
 
+     &lt;! -- Your Scrollable View --&gt;
+    &lt;android.support.v7.widget.RecyclerView
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;match_parent&quot;
+            app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot; /&gt;
+
+    &lt;android.support.design.widget.AppBarLayout
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;wrap_content&quot;&gt;
+   &lt;android.support.v7.widget.Toolbar
+                  ...
+                  app:layout_scrollFlags=&quot;scroll|enterAlways&quot;&gt;
+
+        &lt;android.support.design.widget.TabLayout
+                  ...
+                  app:layout_scrollFlags=&quot;scroll|enterAlways&quot;&gt;
+     &lt;/android.support.design.widget.AppBarLayout&gt;
+&lt;/android.support.design.widget.CoordinatorLayout&gt;
+</code></pre>
                     
                     </section>
                 
