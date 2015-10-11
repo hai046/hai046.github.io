@@ -1,7 +1,7 @@
 #!bin/sh
 
 target_pro=developer
-if [ -z $1 ]
+if [  -f $target_pro ]
 then
 	echo "start git  pull ...  "
 	cd $target_pro
