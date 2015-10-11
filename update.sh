@@ -17,7 +17,20 @@ gitbook build
 
 cd ..
 
-cp -aRf developer/_book/*  .
-
+for f in `find developer/_book  -type f` 
+do
+	f2=`echo ${f:16}`
+#	echo "f=$f,f2=$f2"
+	temp=`cmp $f $f2 `
+#	echo $temp
+	if [ "$temp" != "" ]; then
+#			echo same continue;
+#	else
+		echo "different  cp \t$f to \t$f2 :\n \t $temp"
+		cp -aRf $f $f2	
+	fi 
+done
+#cp -aRf developer/_book/*  .
+git status
 echo "finish"
 
