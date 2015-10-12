@@ -1,4 +1,4 @@
-#!bin/sh
+#!/bin/sh
 
 target_pro=developer
 if [  -d $target_pro ]
