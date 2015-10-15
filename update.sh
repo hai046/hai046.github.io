@@ -29,6 +29,12 @@ do
 		echo "different  cp \t$f to \t$f2 :\n \t $temp"
 		cp -aRf $f $f2	
 	fi 
+
+	if [ -f $f2 ];then
+		echo 		 
+	else
+	 	cp -aRf $f $f2
+	fi
 done
 #cp -aRf developer/_book/*  .
 git status
