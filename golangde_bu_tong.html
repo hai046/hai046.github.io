@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>ViewPager Fragment | Personal notes</title>
+        <title>golang的不同 | Personal notes</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -35,10 +35,8 @@
         
     
     
-    <link rel="next" href="./androidaudio.html" />
     
-    
-    <link rel="prev" href="./gao_si_mo_hu_xiao_guo.html" />
+    <link rel="prev" href="./golang.html" />
     
 
         
@@ -46,7 +44,7 @@
     <body>
         
         
-    <div class="book" data-level="1.2" data-basepath="." data-revision="Tue Nov 10 2015 17:01:03 GMT+0800 (CST)">
+    <div class="book" data-level="3.1" data-basepath="." data-revision="Tue Nov 10 2015 17:01:03 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -100,7 +98,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="viewpager_fragment.html">
+        <li class="chapter " data-level="1.2" data-path="viewpager_fragment.html">
             
                 
                     <a href="./viewpager_fragment.html">
@@ -391,7 +389,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.1" data-path="golangde_bu_tong.html">
+        <li class="chapter active" data-level="3.1" data-path="golangde_bu_tong.html">
             
                 
                     <a href="./golangde_bu_tong.html">
@@ -517,28 +515,67 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="viewpager-fragment-fix">ViewPager Fragment  FIX</h1>
-<p>Err Log&#xFF1A;</p>
-<pre><code>1&#xFF0C;make sure class name exists, is public, 
-and has an empty constructor that is public at
-android.support.v4.app.Fragment.instantiate
-</code></pre><p>&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#xFF1A;</p>
-<pre><code>&#x5728;&#x9875;&#x9762;&#x91CC;&#x9762;  &#x7EE7;&#x627F;DesFragment &#x6DFB;&#x52A0;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;&#x5373;&#x53EF; 
-&#x4F2A;&#x4EE3;&#x7801;&#x5982;&#x4E0B;
+                        <h1 id="golang%E7%9A%84%E4%B8%8D%E5%90%8C%E7%82%B9">golang&#x7684;&#x4E0D;&#x540C;&#x70B9;</h1>
+<h2 id="%E9%9A%8F%E4%BE%BF%E8%AF%B4%E8%AF%B4">&#x968F;&#x4FBF;&#x8BF4;&#x8BF4;</h2>
+<p>&#x5148;&#x770B;&#x4E2A;&#x4F8B;&#x5B50;&#x91CC;&#x9762;&#x6CE8;&#x91CA;&#xFF1A;</p>
+<pre><code>package main
+import (
+    &quot;fmt&quot;
+    &quot;io/ioutil&quot;
+    &quot;path&quot;
+    &quot;os&quot;
+)//&#x591A;&#x4E2A;import,&#x5982;&#x679C;&#x6CA1;&#x6709;&#x4E0D;&#x8981;&#x5BFC;&#x5165;  &#x56E0;&#x4E3A;&#x58F0;&#x660E;&#x4E86; &#x4E0D;&#x4F7F;&#x7528;  golang&#x4F1A;&#x62A5;&#x9519;
 
-    public static class XXXFragment extends DesFragment {
+func readFile(f string) (string, error) {//&#x58F0;&#x660E;&#x60F3;java&#x5012;&#x8FC7;&#x6765;  &#x54C8;&#x54C8; ,&#x5F00;&#x59CB;&#x6709;&#x70B9;&#x4E0D;&#x4E60;&#x60EF;
 
-    public XXXFragment() {
-
+    file, er := os.Open(f);
+    defer file.Close(); //defer&#x5173;&#x952E;&#x5B57;NB&#x4E4B;&#x5904;: &#x4ED6;&#x5728;&#x6267;&#x884C;&#x8BE5;&#x65B9;&#x6CD5;&#x6700;&#x540E;&#x6267;&#x884C;,&#x7136;&#x540E;&#x5728;&#x8FD4;&#x56DE;&#x503C;.&#x4F60;&#x53EF;&#x4EE5;&#x628A;&#x4ED6;&#x5F53;&#x6210;java&#x91CC;&#x9762;&#x7684;finally&#x90E8;&#x5206;&#x4EE3;&#x7801;.
+    if er != nil {    //&quot;{ &quot;&#x5FC5;&#x987B;&#x5728;&#x8FD9;&#x540E;,&#x4E0D;&#x7136;&#x62A5;&#x9519;,&#x8BED;&#x6CD5;&#x89C4;&#x5B9A;
+        panic(&quot;open file err&quot;)//&#x629B;&#x5F02;&#x5E38;&#x9000;&#x51FA;
     }
 
-    public static FragmentRegisterSchool getInstance(T bundle) {
-        XXXFragment fragment = new XXXFragment();
-        fragment.setXXX(bundle);
-        return fragment;
+    content, err := ioutil.ReadAll(file); //&#x54C8;&#x54C8;&#x54C8; &#x591A;&#x8FD4;&#x56DE;&#x503C; nb&#x4E0D;?!!
+    if err != nil {
+        panic(err)
     }
+
+    return string(content), nil; //content&#x8F6C;&#x6210;string,&#x591A;&#x503C;&#x8FD4;&#x56DE;
+}
+
+func findFile(dir string) (string, error) {
+    fs, err := ioutil.ReadDir(dir);
+    if err != nil {
+        panic(&quot;open file err&quot;)
     }
-</code></pre>
+
+
+    for _, info := range fs {//&#x591A;&#x503C;&#x8FD4;&#x56DE;  &#x5982;&#x679C;&#x7528;&quot;_&quot;&#x5C31;&#x4E0D;&#x7528;&#x5904;&#x7406;,&#x5982;&#x679C;&#x4E0D;&#x662F;&#x90A3;&#x4E48;&#x5FC5;&#x987B;&#x5904;&#x7406;,golang&#x91CC;&#x9762; &#x4E0D;&#x80FD;&#x58F0;&#x660E;&#x4E86; &#x4E0D;&#x4F7F;&#x7528;,
+
+        f := path.Join(dir, info.Name())
+
+        if info.IsDir() {
+            fmt.Println(&quot;find dir&quot;, f)
+            findFile(f)
+        }else {
+            cont, _ := readFile(f);
+            fmt.Println(&quot;find file \n&quot;, cont)
+        }
+    }
+
+    return &quot;&quot;, nil;
+}
+
+func main() {
+
+    dir := &quot;/Users/haizhu/Documents/web_workspace/jiemo-golang/src/test&quot;//&#x58F0;&#x660E;  &#x4E5F;&#x53EF;&#x8FD9;&#x6837;&#x5199;  var dir string=&quot;&quot;
+    findFile(dir)
+}
+</code></pre><p>1&#xFF0C;&#x5927;&#x62EC;&#x53F7; &quot;{&quot; &#x5FC5;&#x987B;&#x5728;if for &#x7B49;&#x5173;&#x952E;&#x5B57;&#x6700;&#x540E;  &#x4E0D;&#x80FD;&#x5728;&#x884C;&#x9996;&#x4F4D;</p>
+<p>2&#xFF0C;defer &#x529F;&#x6548;&#x662F;&#x5728;method &#x90FD;&#x6267;&#x884C;&#x73A9;&#x4F46;&#x662F;&#x5728;&#x8FD4;&#x56DE;&#x503C;&#x524D;&#x5904;&#x7406;</p>
+<p>3&#xFF0C;&#x591A;&#x8FD4;&#x56DE;&#x503C;</p>
+<p>4&#xFF0C;&#x58F0;&#x660E;&#x591A;&#x5C11;&#x4F7F;&#x7528;&#x591A;&#x5C11;&#xFF0C;&#x4E0D;&#x80FD;&#x591A;&#x58F0;&#x660E;&#x4E0D;&#x4F7F;&#x7528;</p>
+<p>5&#xFF0C;</p>
+
                     
                     </section>
                 
@@ -548,10 +585,8 @@ android.support.v4.app.Fragment.instantiate
         </div>
 
         
-        <a href="./gao_si_mo_hu_xiao_guo.html" class="navigation navigation-prev " aria-label="Previous page: 高斯模糊效果"><i class="fa fa-angle-left"></i></a>
+        <a href="./golang.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Golang"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="./androidaudio.html" class="navigation navigation-next " aria-label="Next page: android_audio"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

@@ -46,7 +46,7 @@
     <body>
         
         
-    <div class="book" data-level="2.3.1" data-basepath="." data-revision="Thu Oct 15 2015 13:57:38 GMT+0800 (CST)">
+    <div class="book" data-level="2.3.1" data-basepath="." data-revision="Tue Nov 10 2015 17:01:03 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -219,7 +219,7 @@
                         
                             <b>2.</b>
                         
-                        服务端
+                        服务端Java
                     </a>
             
             
@@ -375,6 +375,42 @@
             
         </li>
     
+        <li class="chapter " data-level="3" data-path="golang.html">
+            
+                
+                    <a href="./golang.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Golang
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="golangde_bu_tong.html">
+            
+                
+                    <a href="./golangde_bu_tong.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                        golang的不同
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
 
 
             
@@ -482,7 +518,9 @@
                     <section class="normal" id="section-">
                     
                         <h1 id="ffmpeg-%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">ffmpeg &#x547D;&#x4EE4;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;</h1>
-<h1 id="%E4%BB%8E%E8%A7%86%E9%A2%91%E6%88%AA%E5%8F%96image">&#x4ECE;&#x89C6;&#x9891;&#x622A;&#x53D6;image</h1>
+<h1 id="%E4%BD%BF%E7%94%A8ffmpeg-%E6%88%AA%E5%8F%96%E5%B1%8F%E5%B9%95%E7%94%9F%E6%88%90rtmp">&#x4F7F;&#x7528;ffmpeg &#x622A;&#x53D6;&#x5C4F;&#x5E55;&#x751F;&#x6210;rtmp</h1>
+<pre><code>ffmpeg -f avfoundation -i &quot;1&quot; -vcodec libx264 -preset ultrafast -acodec libfaac -f flv rtmp://localhost/live/STREAM_NAME
+</code></pre><h1 id="%E4%BB%8E%E8%A7%86%E9%A2%91%E6%88%AA%E5%8F%96image">&#x4ECE;&#x89C6;&#x9891;&#x622A;&#x53D6;image</h1>
 <pre><code>ffmpeg -ss 01:35:00  -i &#x6E2F;&#x56E7;\ \(&#x84DD;&#x5149;&#x539F;&#x76D8;\).mkv   -y images/image_%02d.png
 </code></pre><p>&#x540E;&#x9762;&#x7684;%2d &#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x547D;&#x540D;&#x89C4;&#x5219;&#xFF0C;&#x4F1A;&#x622A;&#x53D6;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x56FE;&#x7247;  &#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x5B89;&#x88C5;&#x8FD9;&#x79CD;&#x547D;&#x540D;&#x89C4;&#x5219;&#x6765;&#x7684;&#x8BDD;&#x56DE;&#x62A5;&#x9519;</p>
 <pre><code>[image2 @ 0x7fcde9876000] Could not get frame filename number 2 from pattern &apos;images/image_01.png&apos; (either set updatefirst or use a pattern like %03d within the filename pattern)
