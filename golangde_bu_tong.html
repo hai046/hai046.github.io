@@ -44,7 +44,7 @@
     <body>
         
         
-    <div class="book" data-level="3.1" data-basepath="." data-revision="Tue Nov 10 2015 17:01:03 GMT+0800 (CST)">
+    <div class="book" data-level="3.1" data-basepath="." data-revision="Tue Nov 10 2015 17:31:22 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -574,7 +574,20 @@ func main() {
 <p>2&#xFF0C;defer &#x529F;&#x6548;&#x662F;&#x5728;method &#x90FD;&#x6267;&#x884C;&#x73A9;&#x4F46;&#x662F;&#x5728;&#x8FD4;&#x56DE;&#x503C;&#x524D;&#x5904;&#x7406;</p>
 <p>3&#xFF0C;&#x591A;&#x8FD4;&#x56DE;&#x503C;</p>
 <p>4&#xFF0C;&#x58F0;&#x660E;&#x591A;&#x5C11;&#x4F7F;&#x7528;&#x591A;&#x5C11;&#xFF0C;&#x4E0D;&#x80FD;&#x591A;&#x58F0;&#x660E;&#x4E0D;&#x4F7F;&#x7528;</p>
-<p>5&#xFF0C;</p>
+<p>5&#xFF0C;&#x7EBF;&#x7A0B;&#x5173;&#x952E;&#x5B57; go [func ]</p>
+<p>6,chan </p>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+    ch := make(chan int, 2)
+    ch &lt;- 1
+    ch &lt;- 2
+    fmt.Println(&lt;-ch)
+    fmt.Println(&lt;-ch)
+}
+</code></pre><p>&#x7ED3;&#x679C;&#xFF1A;2&#xFF0C;1</p>
 
                     
                     </section>
