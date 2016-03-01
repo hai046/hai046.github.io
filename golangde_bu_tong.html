@@ -44,7 +44,7 @@
     <body>
         
         
-    <div class="book" data-level="3.1" data-basepath="." data-revision="Tue Nov 10 2015 17:31:22 GMT+0800 (CST)">
+    <div class="book" data-level="3.1" data-basepath="." data-revision="Tue Mar 01 2016 11:26:45 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -588,7 +588,18 @@ func main() {
     fmt.Println(&lt;-ch)
 }
 </code></pre><p>&#x7ED3;&#x679C;&#xFF1A;2&#xFF0C;1</p>
+<p>7,&#x7EBF;&#x7A0B;&#x6302;&#x8D77;</p>
+<pre><code>
+c := make(chan os.Signal, 1)
+    signal.Notify(c, os.Interrupt)
+    go func() {
+        &lt;-c
+        os.Exit(0)
+    }()
 
+    // Sleep forever in main goroutine
+    select {}
+</code></pre>
                     
                     </section>
                 
