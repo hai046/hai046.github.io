@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>配置 | Personal notes</title>
+        <title>DES | Personal notes</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.4.3">
@@ -35,10 +35,10 @@
         
     
     
-    <link rel="next" href="./ganglia_an_zhuang.html" />
+    <link rel="next" href="./golangde_bu_tong.html" />
     
     
-    <link rel="prev" href="./java8xin_te_xing.html" />
+    <link rel="prev" href="./golang.html" />
     
 
         
@@ -46,7 +46,7 @@
     <body>
         
         
-    <div class="book" data-level="2.2" data-basepath="." data-revision="Mon May 16 2016 16:48:25 GMT+0800 (CST)">
+    <div class="book" data-level="3.1" data-basepath="." data-revision="Mon May 16 2016 16:48:25 GMT+0800 (CST)">
     
 
 <div class="book-summary">
@@ -277,7 +277,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.2" data-path="pei_zhi.html">
+        <li class="chapter " data-level="2.2" data-path="pei_zhi.html">
             
                 
                     <a href="./pei_zhi.html">
@@ -391,7 +391,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="3.1" data-path="des.html">
+        <li class="chapter active" data-level="3.1" data-path="des.html">
             
                 
                     <a href="./des.html">
@@ -532,8 +532,109 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="%E9%85%8D%E7%BD%AE">&#x914D;&#x7F6E;</h1>
+                        <p>golang DES/ECB/PKCS5Padding&#x5B9E;&#x73B0; </p>
+<pre><code>package DES
 
+//author denghaizhu
+
+import (
+    &quot;encoding/base64&quot;
+    &quot;fmt&quot;
+    &quot;bytes&quot;
+    &quot;encoding/binary&quot;
+    &quot;crypto/des&quot;
+    &quot;errors&quot;
+)
+
+func PKCS5Padding(ciphertext []byte, blockSize int) []byte {
+    padding := blockSize - len(ciphertext) % blockSize
+    padtext := bytes.Repeat([]byte{byte(padding)}, padding)
+    return append(ciphertext, padtext...)
+}
+
+func PKCS5UnPadding(origData []byte) []byte {
+    length := len(origData)
+    unpadding := int(origData[length - 1])
+    return origData[:(length - unpadding)]
+}
+
+func DesEncrypt(src, key []byte) ([]byte, error) {
+    block, err := des.NewCipher(key)
+    if err != nil {
+        return nil, err
+    }
+    bs := block.BlockSize()
+    src = PKCS5Padding(src, bs)
+    if len(src) % bs != 0 {
+        return nil, errors.New(&quot;Need a multiple of the blocksize&quot;)
+    }
+    out := make([]byte, len(src))
+    dst := out
+    for len(src) &gt; 0 {
+        block.Encrypt(dst, src[:bs])
+        src = src[bs:]
+        dst = dst[bs:]
+    }
+    return out, nil
+}
+
+func DesDecrypt(src, key []byte) ([]byte, error) {
+    block, err := des.NewCipher(key)
+    if err != nil {
+        return nil, err
+    }
+    out := make([]byte, len(src))
+    dst := out
+    bs := block.BlockSize()
+    if len(src) % bs != 0 {
+        return nil, errors.New(&quot;crypto/cipher: input not full blocks&quot;)
+    }
+    for len(src) &gt; 0 {
+        block.Decrypt(dst, src[:bs])
+        src = src[bs:]
+        dst = dst[bs:]
+    }
+    out = PKCS5UnPadding(out)
+    return out, nil
+}
+
+
+// &#x6CE8;&#x610F;2&#x4E2A;&#x95EE;&#x9898;:
+//1,&#x6211;&#x4EEC;java &#x52A0;&#x5BC6;&#x4F7F;&#x7528; DES/ECB/PKCS5Padding google&#x8BA4;&#x4E3A;ECB&#x52A0;&#x5BC6;&#x5B89;&#x5168;&#x6027;&#x4F4E;,&#x6CA1;&#x6709;&#x5BF9;&#x65B9;&#x5F00;&#x53D1;,&#x4E0A;&#x9762;&#x662F;&#x81EA;&#x5DF1;&#x5B9E;&#x73B0;&#x7684;  @see https://gist.github.com/cuixin/10612934
+//2,java &#x7684;byte&#x662F; int8,&#x4F46;&#x662F;golang &#x662F;
+//        System.out.println(Base64.encodeBase64URLSafeString(ImageConstants.DES_KEY));
+
+func DesImageEncrypt(id int64, productionEnviornment bool) string {
+
+    var key string;
+
+    if productionEnviornment {
+        key = &quot;DicrJiFV9kg&quot;
+    } else {
+        key = &quot;D9gsCIXTm8Q&quot;
+    }
+
+    base64er := base64.RawURLEncoding;
+
+
+    decoder_buf, _ := base64er.DecodeString(key)
+
+    buf := new(bytes.Buffer)
+    err := binary.Write(buf, binary.BigEndian, id)
+
+    if err != nil {
+        fmt.Println(&quot;binary.Write failed:&quot;, err)
+    }
+    result, err := DesEncrypt(buf.Bytes(), decoder_buf);
+    if err != nil {
+        fmt.Println(&quot;binary.Write failed:&quot;, err)
+    }
+
+    uuid := base64er.EncodeToString(result);
+
+    return uuid
+}
+</code></pre>
                     
                     </section>
                 
@@ -543,10 +644,10 @@
         </div>
 
         
-        <a href="./java8xin_te_xing.html" class="navigation navigation-prev " aria-label="Previous page: java8新特性"><i class="fa fa-angle-left"></i></a>
+        <a href="./golang.html" class="navigation navigation-prev " aria-label="Previous page: Golang"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="./ganglia_an_zhuang.html" class="navigation navigation-next " aria-label="Next page: ganglia 安装"><i class="fa fa-angle-right"></i></a>
+        <a href="./golangde_bu_tong.html" class="navigation navigation-next " aria-label="Next page: golang的不同"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
